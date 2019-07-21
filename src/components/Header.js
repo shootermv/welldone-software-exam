@@ -22,10 +22,6 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
       flexGrow: 1,
-    },
-    rightToolbar: {
-        marginLeft: 'auto',
-        marginRight: -12,
     }
   }));
 function Header({title}) {
@@ -53,7 +49,6 @@ function Header({title}) {
 
                 <Grid item>
                     <Tabs
-                        className={classes.rightToolbar}
                         value={value}
                         onChange={handleChange}
                         variant="scrollable"
