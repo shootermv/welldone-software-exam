@@ -6,7 +6,7 @@ class Categories extends React.Component {
     render() {
         return (
             <div>
-                <Header />
+                <Header title="Categories" />
                 Categories
             </div>
         )

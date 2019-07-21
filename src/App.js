@@ -12,17 +12,14 @@ import BottomAppBar from './components/BottomAppBar';
 
 export default function App() {
   return (
-    <Container maxWidth="sm">
         <Router>
           <Switch>
-
             <Route path="/categories" exact component={Categories} />
             <Route path="/locations" component={Locations}/>   
             <Route exact path="/" render={() => <Redirect to="/categories" />} />
           </Switch>
           <BottomAppBar/>
         </Router>
-       
-    </Container>
+   
   );
 }

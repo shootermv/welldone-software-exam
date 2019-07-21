@@ -6,7 +6,7 @@ class Locations extends React.Component {
     render() {
         return (
             <div>
-                <Header />
+                <Header  title="Locations" />
                 Locations
             </div>
         )
