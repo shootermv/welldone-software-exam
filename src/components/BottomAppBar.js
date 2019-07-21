@@ -42,7 +42,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function BottomAppBar() {
   const classes = useStyles();
-  const [value, setValue] = React.useState(2);
+  const [value, setValue] = React.useState(0);
+
+  function handleChange(event, newValue) {
+    setValue(newValue);
+  }
 
   return (
     <React.Fragment>
@@ -52,9 +56,10 @@ export default function BottomAppBar() {
         <Tabs
             value={value}
             indicatorColor="primary"
-            textColor="accent"
+            textColor="inherit"
+            onChange={handleChange} 
             aria-label="Disabled tabs example"
-            fullWidth
+            fullwidth="true"
         >
           <Tab label="categories"  icon={<FavoriteIcon />} component={Link} to="/categories" />
           <Tab label="locations"  icon={<LocationOnIcon />} component={Link} to="/locations" />
