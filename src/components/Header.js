@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     title: {
       flexGrow: 1,
     }
-  }));
+}));
+
 function Header({title}) {
     const classes = useStyles();
     const [value, setValue] = React.useState(0);
