@@ -12,8 +12,11 @@
     "@material-ui/core": "latest",
     "@material-ui/icons": "^4.2.1",
     "clsx": "latest",
+    "jss-preset-default": "^4.5.0",
+    "leaflet": "^1.5.1",
     "react": "latest",
     "react-dom": "latest",
+    "react-leaflet": "^2.4.0",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1",
     "react-scripts": "latest"

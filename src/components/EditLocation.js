@@ -32,6 +32,24 @@ import Button from "@material-ui/core/Button";
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 
+
+/* map */
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import jss from 'jss';
+import jssDefault from 'jss-preset-default';
+
+import 'leaflet/dist/leaflet.css';
+
+jss.setup(jssDefault());
+
+jss.createStyleSheet({
+  '@global': {
+    '.leaflet-container': {
+      height: '450px',
+    },
+  },
+}).attach();
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: "flex",
@@ -162,9 +180,21 @@ export default function EditLocation({ history, match }) {
 
           <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
            <DialogTitle id="simple-dialog-title">Slick Some Location</DialogTitle>
-           <div style={{height:"450px", width:"450px"}}>Hi</div>
+           <div id="map" style={{height:"400px", width:"450px"}}>
+             <Map center={[51.505, -0.09]} zoom={13}>
+              <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+              />
+              <Marker position={[51.505, -0.09]}>
+                <Popup>A pretty CSS3 popup.<br />Easily customizable.</Popup>
+              </Marker>
+            </Map>
+           </div>
           </Dialog>
+
         </Paper>
+
       </Container>
     </form>
   );
