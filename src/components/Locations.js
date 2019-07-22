@@ -39,25 +39,7 @@ const useStyles = makeStyles(theme => ({
     }
 }));
 
-const headRows = [
-  { id: "name", numeric: false, disablePadding: true, label: "Name" },
-  { id: "address", numeric: false, disablePadding: false, label: "Address" },
-  {
-    id: "coordinates",
-    numeric: false,
-    disablePadding: false,
-    label: "Coordinates"
-  },
-  { id: "categories", numeric: true, disablePadding: false, label: "Carbs (g)" }
-];
-const rows = [
-  {
-    name: "Vasia",
-    address: "Jerusalem",
-    coordinates: "1234,4354",
-    categories: "restaurant"
-  }
-];
+
 
 export default function Locations({ history, match }, props) {
   const classes = useStyles();  
@@ -112,6 +94,7 @@ export default function Locations({ history, match }, props) {
           <Table>
             <TableHead>
               <TableRow>
+                <TableCell>&nbsp;</TableCell>  
                 <TableCell>Name</TableCell>
                 <TableCell align="right">Address</TableCell>
                 <TableCell align="right">Coordinates</TableCell>
@@ -119,13 +102,16 @@ export default function Locations({ history, match }, props) {
               </TableRow>
             </TableHead>
             <TableBody>
-              {rows.map(row => (
+              {locations.map(row => (
                 <TableRow key={row.name}>
+                  <TableCell padding="checkbox">
+                     <Checkbox checked={true}/>                                             
+                  </TableCell>                    
                   <TableCell component="th" scope="row">
                     {row.name}
                   </TableCell>
                   <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="right">{row.coordinates}</TableCell>
+                  <TableCell align="right">{row.coordinates.join(',')}</TableCell>
                   <TableCell align="right">{row.categories}</TableCell>
                 </TableRow>
               ))}
