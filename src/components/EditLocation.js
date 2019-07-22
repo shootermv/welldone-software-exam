@@ -101,7 +101,7 @@ export default function EditLocation({ history, match }) {
   };
 
   /* button stuff */
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);
@@ -109,6 +109,11 @@ export default function EditLocation({ history, match }) {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  const handleMapClick = (evt) => {
+    setOpen(false);
+    handleChange('coordinates')({target: {value: [evt.latlng.lat, evt.latlng.lng]}})
   };
 
   return (
@@ -181,7 +186,7 @@ export default function EditLocation({ history, match }) {
           <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
            <DialogTitle id="simple-dialog-title">Slick Some Location</DialogTitle>
            <div id="map" style={{height:"400px", width:"450px"}}>
-             <Map center={[51.505, -0.09]} zoom={13}>
+             <Map center={[51.505, -0.09]} zoom={13} onClick={handleMapClick}>
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution="&copy; <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
