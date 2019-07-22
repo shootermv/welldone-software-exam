@@ -6,12 +6,7 @@ export const AppContext = React.createContext({
   selectedLocationId: null,
   selectedCategory: "",
   categories: [],
-  locations: [],
-  handleCategoryChange() {},
-  handleLocationChange() {},
-  getCategories() {},
-  getLocations() {},
-  setSelectedCategory() {}
+  locations: []
 });
 
 export const Provider = AppContext.Provider;

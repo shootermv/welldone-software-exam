@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -15,17 +15,27 @@ import BottomAppBar from "./components/BottomAppBar";
 /* context */
 import { Provider } from "./AppContext";
 
+const localStorageKey = "myLocations";
+
 export default function App() {
+
+  const fromLocalStorage = localStorage.getItem(localStorageKey) && JSON.parse(localStorage.getItem(localStorageKey));
+
   const [state, setState] = useState({
-    selectedLocationId: null,
-    selectedCategory: "",
-    categories: ["restaurant", "coffe", "hiking"],
-    locations: []
+    selectedLocationId: fromLocalStorage && fromLocalStorage.selectedLocationId || null,
+    selectedCategory: fromLocalStorage && fromLocalStorage.selectedCategory || "",
+    categories: fromLocalStorage && fromLocalStorage.categories ||  [],
+    locations: fromLocalStorage && fromLocalStorage.locations ||  []
   });
+
+  /* must persist state at localStorage */
+  useEffect(() => {
+    localStorage.setItem(localStorageKey, JSON.stringify(state));
+  }, [state]);
 
   return (
     <Provider value={{
-      data:state,
+      data: state,
       setSelectedCategory: (selectedCategory) => {
         setState({ ...state, selectedCategory });
       },
