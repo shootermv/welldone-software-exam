@@ -16,19 +16,27 @@ import BottomAppBar from "./components/BottomAppBar";
 import { Provider } from "./AppContext";
 
 export default function App() {
-  const context = useState({
+  const [state, setState] = useState({
     selectedLocationId: null,
     selectedCategory: "",
     categories: ["restaurant", "coffe", "hiking"],
     locations: [],
     handleCategoryChange() {},
     handleLocationChange() {},
-    getCategories() {},
-    getLocations() {}
+    setSelectedCategory() {}
   });
 
   return (
-    <Provider value={context}>
+    <Provider value={{
+      data:state,
+      setSelectedCategory: (selectedCategory) => {
+        setState({ ...state, selectedCategory });
+      },
+      removeSelectedCategory: () => {
+        const sel = state.selectedCategory;
+        setState({ ...state,  categories: [...state.categories.filter(cat => cat !== sel)], selectedCategory: ''});
+      }
+    }}>
       <Router>
         <Switch>
           <Route path="/categories" exact component={Categories} />

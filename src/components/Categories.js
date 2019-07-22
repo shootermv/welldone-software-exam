@@ -23,14 +23,10 @@ import { AppContext } from "../AppContext";
 
 function Categories({history}) {
 
-  let [state] = useContext(AppContext);
+  let {data: {categories, selectedCategory}, setSelectedCategory, removeSelectedCategory } = useContext(AppContext);
 
-
-  const [selectedCategory, setSelected] = useState('');
-  const [categories, setCategories] = useState(state.categories);
- 
   const handleToggle = value => () => {
-    setSelected(value);
+   setSelectedCategory(value);
   };
 
   const goToEdit = () => {
@@ -38,8 +34,7 @@ function Categories({history}) {
   };
 
   const handleDelete = () => {
-    setCategories(categories.filter(cat => cat !== selectedCategory))
-    setSelected('');
+    removeSelectedCategory();
   };
 
   const handleAdd = () => {
