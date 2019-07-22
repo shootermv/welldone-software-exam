@@ -7,15 +7,15 @@ import Container from "@material-ui/core/Container";
 import Fab from "@material-ui/core/Fab";
 import DoneIcon from "@material-ui/icons/Done";
 
-export default function EditCategory({history}) {
+export default function EditCategory({ history }) {
   const [value, setValues] = React.useState("restaurant");
 
   const handleChange = name => event => {
     setValues(event.target.value);
   };
 
-  const handleSubmit = (evt) => {
-     history.push('/categories')
+  const handleSubmit = evt => {
+    history.push("/categories");
   };
   return (
     <form noValidate autoComplete="off">
@@ -24,11 +24,10 @@ export default function EditCategory({history}) {
           <Typography type="title" color="inherit">
             {"Edit Category"}
           </Typography>
-
         </Toolbar>
         <Fab color="primary" aria-label="Done" onClick={handleSubmit}>
-            <DoneIcon />
-          </Fab>
+          <DoneIcon />
+        </Fab>
       </AppBar>
       <Container>
         <TextField
