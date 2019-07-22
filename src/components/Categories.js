@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 
 import Header from './Header';
 import List from '@material-ui/core/List';
@@ -9,32 +9,33 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 
 function Categories() {
-    const [checked, setChecked] = React.useState([0]);
-
+    const [checked, setChecked] = useState([0]);
+    const [categories, setCategory] = useState(['restaurant', 'coffe', 'hiking']);
     const handleToggle = value => () => {
       setChecked([value]);
     };
    
-     return (
+    return (
             <div>
                 <Header title="Categories" />
                 <List>
-                {[0, 1, 2, 3].map(value => {
+                {categories.map(value => {
                     const labelId = `checkbox-list-label-${value}`;
                     return (
-                    <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
-                        <ListItemIcon>
-                            <Checkbox
-                                edge="start"
-                                checked={checked.indexOf(value) !== -1}
-                                tabIndex={-1}
-                                disableRipple
-                                inputProps={{ 'aria-labelledby': labelId }}
-                            />
-                        </ListItemIcon>
-                        <ListItemText id={labelId} primary={`Line item ${value + 1}`} />
+                        <ListItem key={value} role={undefined} dense button onClick={handleToggle(value)}>
+                            <ListItemIcon>
+                                <Checkbox
+                                    edge="start"
+                                    checked={checked.indexOf(value) !== -1}
+                                    tabIndex={-1}
+                                    disableRipple
+                                    inputProps={{ 'aria-labelledby': labelId }}
+                                />
+                            </ListItemIcon>
+                            <ListItemText id={labelId} primary={value} />
 
-                    </ListItem>)
+                        </ListItem>
+                    )
                 
                 })}
                 </List>            
