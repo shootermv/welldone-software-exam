@@ -10,6 +10,7 @@ import {
 import Categories from "./components/Categories";
 import EditCategory from "./components/EditCategory";
 import Locations from "./components/Locations";
+import EditLocation from "./components/EditLocation";
 import BottomAppBar from "./components/BottomAppBar";
 
 /* context */
@@ -54,8 +55,9 @@ export default function App() {
       <Router>
         <Switch>
           <Route path="/categories" exact component={Categories} />
-          <Route path="/categories/:id" exact component={EditCategory} />
-          <Route path="/locations" component={Locations} />
+          <Route path="/categories/:id" component={EditCategory} />
+          <Route path="/locations"  exact component={Locations} />
+          <Route path="/locations/:id" component={EditLocation} />
           <Route exact path="/" render={() => <Redirect to="/categories" />} />
         </Switch>
         <BottomAppBar />
