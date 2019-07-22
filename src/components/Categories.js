@@ -59,6 +59,7 @@ function Categories({history}) {
           <AddIcon />
         </Fab>               
       </AppBar>
+      
       <List>
         {categories.map(category => {
           const labelId = `checkbox-list-label-${category}`;
