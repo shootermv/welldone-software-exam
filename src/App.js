@@ -54,6 +54,13 @@ export default function App() {
       /* locations */
       setSelectedLocation: (selectedLocationId) => {
         setState({ ...state, selectedLocationId });
+      },
+      updateLocation: (location) => {
+        const sel = state.selectedLocationId;
+        setState({ ...state,  locations: [...state.locations.filter(({id}) => id !== sel), location], selectedLocationId: location.id});
+      },
+      addLocation: (location) => {
+        setState({ ...state,  locations: [...state.locations, location]});
       }
     }}>
       <Router>

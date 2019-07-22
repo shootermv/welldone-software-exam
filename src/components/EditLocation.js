@@ -19,6 +19,15 @@ import Paper from "@material-ui/core/Paper";
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
+/* chips */
+import Chip from '@material-ui/core/Chip';
+import Input from '@material-ui/core/Input';
+import Select from '@material-ui/core/Select';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+
+
 const useStyles = makeStyles(theme => ({
   container: {
     display: 'flex',
@@ -41,7 +50,7 @@ export default function EditLocation({ history, match }) {
 
     const classes = useStyles();
 
-    const {data: {locations} } = useContext(AppContext);
+    const {data: {locations, categories}, updateLocation, addLocation } = useContext(AppContext);
 
     const [location, setValues] = useState(
         match.params.id !== "new" ? locations.find(loc => loc.id === +match.params.id) : {name:"" , address:"", coordinates: [null, null], categories: []}
@@ -53,8 +62,8 @@ export default function EditLocation({ history, match }) {
     
     const handleSubmit = evt => {
         evt.preventDefault();
-        if (!location.name) {return;}
-        //match.params.id !== "new" ? updateCategory(value) : addCategory(value);
+        if (!location.name || !location.address) {return;}
+        match.params.id !== "new" ? updateLocation(location) : addLocation(location);
         history.push("/locations");
     };
 
@@ -84,6 +93,42 @@ export default function EditLocation({ history, match }) {
             onChange={handleChange('name')}
             margin="normal"
           />
+          <TextField
+            id="address"
+            label="Address"
+            className={classes.textField}
+            value={location.address}
+            onChange={handleChange('address')}
+            margin="normal"
+          />     
+
+           <FormControl className={classes.formControl}>
+              <InputLabel htmlFor="select-multiple-chip">Categories</InputLabel>
+              <Select
+                multiple
+                value={location.categories}
+                onChange={handleChange("categories")}
+                input={<Input id="select-multiple-chip" name="categories" />}
+                renderValue={selected => (
+                  <div className={classes.chips}>
+                    {selected.map(value => (
+                      <Chip key={value} label={value} className={classes.chip} />
+                    ))}
+                  </div>
+                )}
+              >
+                {categories.map(cat => (
+                  <MenuItem key={cat} value={cat} >
+                    {cat}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+
+
+
+
           </Paper>
         </Container>
       </form>)
