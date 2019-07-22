@@ -179,7 +179,7 @@ export default function EditLocation({ history, match }) {
           <FormControl className={classes.formControl}>
             Coordinates:
             <Button variant="contained" onClick={handleOpen}>
-              <PlaceIcon />
+              <PlaceIcon />{location.coordinates.length  && location.coordinates.map(c=>c.toFixed(2)).join(',')}
             </Button>
           </FormControl>
 

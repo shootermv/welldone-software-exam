@@ -24,6 +24,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Container } from "@material-ui/core";
+import Chip from "@material-ui/core/Chip";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -112,8 +113,8 @@ export default function Locations({ history, match }, props) {
                     {row.name}
                   </TableCell>
                   <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="right">{row.coordinates.join(',')}</TableCell>
-                  <TableCell align="right">{row.categories}</TableCell>
+                  <TableCell align="right">{row.coordinates.map(c=>c.toFixed(2)).join(',')}</TableCell>
+                  <TableCell align="right">{row.categories.map(cat=><Chip key={cat} label={cat} className={classes.chip} />)}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
