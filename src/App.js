@@ -22,10 +22,10 @@ export default function App() {
   const fromLocalStorage = localStorage.getItem(localStorageKey) && JSON.parse(localStorage.getItem(localStorageKey));
 
   const [state, setState] = useState({
-    selectedLocationId: fromLocalStorage && fromLocalStorage.selectedLocationId || null,
-    selectedCategory: fromLocalStorage && fromLocalStorage.selectedCategory || "",
-    categories: fromLocalStorage && fromLocalStorage.categories ||  [],
-    locations: fromLocalStorage && fromLocalStorage.locations ||  []
+    selectedLocationId: (fromLocalStorage && fromLocalStorage.selectedLocationId) || null,
+    selectedCategory: (fromLocalStorage && fromLocalStorage.selectedCategory) || "",
+    categories: (fromLocalStorage && fromLocalStorage.categories) ||  [],
+    locations: (fromLocalStorage && fromLocalStorage.locations) ||  []
   });
 
   /* must persist state at localStorage */
