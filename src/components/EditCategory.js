@@ -29,13 +29,15 @@ export default function EditCategory({ history, match }) {
   };
 
   const handleSubmit = evt => {
+    evt.preventDefault();
+    if (!value) {return;}
     match.params.id !== "new" ? updateCategory(value) : addCategory(value);
     history.push("/categories");
   };
   
 
   return (
-    <form noValidate autoComplete="off">
+    <form noValidate autoComplete="off" onSubmit={handleSubmit}>
 
       <AppBar position="static">
         <Toolbar>
@@ -43,8 +45,8 @@ export default function EditCategory({ history, match }) {
             {"Edit Category"}
           </Typography>
         </Toolbar>
-        <Fab color="primary" aria-label="Done" onClick={handleSubmit}>
-          <DoneIcon />
+        <Fab color="primary" aria-label="Done">
+          <DoneIcon onClick={handleSubmit}/>
         </Fab>
       </AppBar>
 
