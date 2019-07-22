@@ -50,6 +50,10 @@ export default function App() {
       updateCategory: (category) => {
         const sel = state.selectedCategory;
         setState({ ...state,  categories: [...state.categories.filter(cat => cat !== sel), category], selectedCategory: category});
+      },
+      /* locations */
+      setSelectedLocation: (selectedLocationId) => {
+        setState({ ...state, selectedLocationId });
       }
     }}>
       <Router>
