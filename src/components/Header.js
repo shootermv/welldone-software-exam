@@ -38,7 +38,7 @@ function Header({title}) {
               <Grid
                 justify="space-between" // Add it here :)
                 container 
-                spacing={24}
+                spacing={10}
                 >
                 <Grid item>
                   <Toolbar>
