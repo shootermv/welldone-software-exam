@@ -29,7 +29,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Button from "@material-ui/core/Button";
 
 /* modal */
-import Modal from "@material-ui/core/Modal";
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from '@material-ui/core/Dialog';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -47,36 +48,12 @@ const useStyles = makeStyles(theme => ({
   menu: {
     width: 200
   },
-  paper: {
-    position: "absolute",
-    width: 400,
-    backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 4),
-    outline: "none"
-  }
 }));
 
-function rand() {
-  return Math.round(Math.random() * 20) - 10;
-}
 
-function getModalStyle() {
-  const top = 50 + rand();
-  const left = 50 + rand();
-
-  return {
-    top: `${top}%`,
-    left: `${left}%`,
-    transform: `translate(-${top}%, -${left}%)`
-  };
-}
 
 export default function EditLocation({ history, match }) {
   const classes = useStyles();
-  // getModalStyle is not a pure function, we roll the style only on the first render
-  const [modalStyle] = React.useState(getModalStyle);
 
   const {
     data: { locations, categories },
@@ -183,19 +160,10 @@ export default function EditLocation({ history, match }) {
             </Button>
           </FormControl>
 
-          <Modal
-            aria-labelledby="simple-modal-title"
-            aria-describedby="simple-modal-description"
-            open={open}
-            onClose={handleClose}
-          >
-            <div style={modalStyle} className={classes.paper}>
-              <h2 id="modal-title">Text in a modal</h2>
-              <div id="map" style={{ height: "440px", width: "440px" }}>
-
-              </div>
-            </div>
-          </Modal>
+          <Dialog onClose={handleClose} aria-labelledby="simple-dialog-title" open={open}>
+           <DialogTitle id="simple-dialog-title">Slick Some Location</DialogTitle>
+           <div style={{height:"450px", width:"450px"}}>Hi</div>
+          </Dialog>
         </Paper>
       </Container>
     </form>
