@@ -7,8 +7,10 @@ import Container from "@material-ui/core/Container";
 import Fab from "@material-ui/core/Fab";
 import DoneIcon from "@material-ui/icons/Done";
 
-export default function EditCategory({ history }) {
-  const [value, setValues] = React.useState("restaurant");
+export default function EditCategory({ history, match }) {
+  const [value, setValues] = React.useState(
+    match.params.id !== "new" ? match.params.id : ""
+  );
 
   const handleChange = name => event => {
     setValues(event.target.value);
