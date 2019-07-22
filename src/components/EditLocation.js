@@ -53,7 +53,7 @@ export default function EditLocation({ history, match }) {
     const {data: {locations, categories}, updateLocation, addLocation } = useContext(AppContext);
 
     const [location, setValues] = useState(
-        match.params.id !== "new" ? locations.find(loc => loc.id === +match.params.id) : {name:"" , address:"", coordinates: [null, null], categories: []}
+        match.params.id !== "new" ? locations.find(loc => loc.id === +match.params.id) : {name:"" , address:"", coordinates: [], categories: []}
     );
 
     const handleChange = name => event => {
