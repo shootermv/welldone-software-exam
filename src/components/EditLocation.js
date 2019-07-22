@@ -8,7 +8,7 @@ import Typography from "@material-ui/core/Typography";
 /* action buttons */
 import Fab from "@material-ui/core/Fab";
 import DoneIcon from "@material-ui/icons/Done";
-
+import PlaceIcon from "@material-ui/icons/Place";
 
 /* context */
 import { AppContext } from "../AppContext";
@@ -26,7 +26,7 @@ import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
-
+import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -85,6 +85,7 @@ export default function EditLocation({ history, match }) {
 
         <Container>
           <Paper>
+          <FormControl className={classes.formControl}>
           <TextField
             id="standard-name"
             label="Name"
@@ -92,7 +93,9 @@ export default function EditLocation({ history, match }) {
             value={location.name}
             onChange={handleChange('name')}
             margin="normal"
-          />
+          /> 
+          </FormControl>  
+          <FormControl className={classes.formControl}>
           <TextField
             id="address"
             label="Address"
@@ -101,7 +104,7 @@ export default function EditLocation({ history, match }) {
             onChange={handleChange('address')}
             margin="normal"
           />     
-
+          </FormControl>
            <FormControl className={classes.formControl}>
               <InputLabel htmlFor="select-multiple-chip">Categories</InputLabel>
               <Select
@@ -125,6 +128,12 @@ export default function EditLocation({ history, match }) {
               </Select>
             </FormControl>
 
+            <FormControl className={classes.formControl}>
+              Coordinates:
+              <Button variant="contained">
+                <PlaceIcon />
+              </Button>
+            </FormControl>
 
 
 
