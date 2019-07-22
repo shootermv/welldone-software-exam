@@ -41,7 +41,8 @@ export default function Locations({ history, match }, props) {
       locations,
       selectedLocationId
     },
-    setSelectedLocation
+    setSelectedLocation, 
+    removeSelectedLocation
   } = useContext(AppContext);
 
   const handleClick = ({id}) => (evt) => {
@@ -52,7 +53,9 @@ export default function Locations({ history, match }, props) {
     history.push(`/locations/${selectedLocationId}`)
   };
 
-  const handleDelete = () => {};
+  const handleDelete = () => {
+    removeSelectedLocation();
+  };
 
   const handleAdd = () => {
     history.push(`/locations/new`);

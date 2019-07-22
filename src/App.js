@@ -60,8 +60,13 @@ export default function App() {
         setState({ ...state,  locations: [...state.locations.filter(({id}) => id !== sel), location], selectedLocationId: location.id});
       },
       addLocation: (location) => {
+        location.id = state.locations.length+1;
         setState({ ...state,  locations: [...state.locations, location]});
-      }
+      },
+      removeSelectedLocation: () => {
+        const sel = state.selectedLocationId;
+        setState({ ...state,  locations: [...state.locations.filter(({id}) => id !== sel)], selectedLocationId: null});
+      }     
     }}>
       <Router>
         <Switch>
