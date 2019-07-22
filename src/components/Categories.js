@@ -9,8 +9,9 @@ import Typography from "@material-ui/core/Typography";
 import Fab from "@material-ui/core/Fab";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
 
-/*  list stuff  */ 
+/* list stuff */ 
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -34,6 +35,10 @@ function Categories({history}) {
     setSelected('');
   };
 
+  const handleAdd = () => {
+    history.push(`/categories/new`);
+  }
+
   return (
     <div>
       <AppBar position="static">
@@ -45,9 +50,12 @@ function Categories({history}) {
         <Fab color="primary" aria-label="Edit" onClick={goToEdit} disabled={selectedCategory !== '' ? false : true}>
           <EditIcon />
         </Fab>
-        <Fab color="primary" aria-label="Edit" onClick={handleDelete} disabled={selectedCategory !== '' ? false : true}>
+        <Fab color="primary" aria-label="Delete" onClick={handleDelete} disabled={selectedCategory !== '' ? false : true}>
           <DeleteIcon />
-        </Fab>       
+        </Fab>   
+        <Fab color="primary" aria-label="Add" onClick={handleAdd}>
+          <AddIcon />
+        </Fab>               
       </AppBar>
       <List>
         {categories.map(category => {
