@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 /* toolbar */
 import AppBar from "@material-ui/core/AppBar";
@@ -18,10 +18,17 @@ import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 
-function Categories({history}) {
-  const [selectedCategory, setSelected] = useState('');
-  const [categories, setCategories] = useState(["restaurant", "coffe", "hiking"]);
+/* context */
+import { AppContext } from "../AppContext";
 
+function Categories({history}) {
+
+  let [state] = useContext(AppContext);
+
+
+  const [selectedCategory, setSelected] = useState('');
+  const [categories, setCategories] = useState(state.categories);
+ 
   const handleToggle = value => () => {
     setSelected(value);
   };
