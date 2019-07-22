@@ -1,13 +1,25 @@
-import React from "react";
-import TextField from "@material-ui/core/TextField";
+import React, {useContext, useEffect} from "react";
+
+/* toolbar */
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Container from "@material-ui/core/Container";
+
+/* action buttons */
 import Fab from "@material-ui/core/Fab";
 import DoneIcon from "@material-ui/icons/Done";
 
+/* form */
+import Container from "@material-ui/core/Container";
+import TextField from "@material-ui/core/TextField";
+
+/* context */
+import { AppContext } from "../AppContext";
+
+
 export default function EditCategory({ history, match }) {
+  const {updateCategory, addCategory } = useContext(AppContext);
+  
   const [value, setValues] = React.useState(
     match.params.id !== "new" ? match.params.id : ""
   );
@@ -17,10 +29,14 @@ export default function EditCategory({ history, match }) {
   };
 
   const handleSubmit = evt => {
+    match.params.id !== "new" ? updateCategory(value) : addCategory(value);
     history.push("/categories");
   };
+  
+
   return (
     <form noValidate autoComplete="off">
+
       <AppBar position="static">
         <Toolbar>
           <Typography type="title" color="inherit">
@@ -31,6 +47,7 @@ export default function EditCategory({ history, match }) {
           <DoneIcon />
         </Fab>
       </AppBar>
+
       <Container>
         <TextField
           id="standard-name"

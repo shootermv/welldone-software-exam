@@ -20,10 +20,7 @@ export default function App() {
     selectedLocationId: null,
     selectedCategory: "",
     categories: ["restaurant", "coffe", "hiking"],
-    locations: [],
-    handleCategoryChange() {},
-    handleLocationChange() {},
-    setSelectedCategory() {}
+    locations: []
   });
 
   return (
@@ -35,6 +32,13 @@ export default function App() {
       removeSelectedCategory: () => {
         const sel = state.selectedCategory;
         setState({ ...state,  categories: [...state.categories.filter(cat => cat !== sel)], selectedCategory: ''});
+      },
+      addCategory: (category) => {
+        setState({ ...state,  categories: [...state.categories, category]});
+      },
+      updateCategory: (category) => {
+        const sel = state.selectedCategory;
+        setState({ ...state,  categories: [...state.categories.filter(cat => cat !== sel), category], selectedCategory: category});
       }
     }}>
       <Router>
