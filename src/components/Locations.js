@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext} from "react";
 
 /* toolbar */
 import AppBar from "@material-ui/core/AppBar";
@@ -21,6 +21,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from "@material-ui/core/Paper";
 import Checkbox from "@material-ui/core/Checkbox";
 import { Container } from "@material-ui/core";
@@ -37,7 +38,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Locations({ history, match }, props) {
   const classes = useStyles();  
-  let {
+
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy, setOrderBy] = React.useState('name');
+
+  const {
     data: {
       locations,
       selectedLocationId
@@ -61,6 +66,24 @@ export default function Locations({ history, match }, props) {
   const handleAdd = () => {
     history.push(`/locations/new`);
   };
+
+
+
+
+  const getSorted = () => {
+
+    let result =  locations.sort((a, b) => {
+      if (a[orderBy] < b[orderBy]) {
+        return order==='asc' ? -1 : 1;
+      }
+      if (a[orderBy] > b[orderBy]) {
+        return order==='asc' ? 1 : -1;
+      }
+      return 0;
+    })
+    
+    return result; 
+  }
 
   return (
     <div>
@@ -97,14 +120,22 @@ export default function Locations({ history, match }, props) {
             <TableHead>
               <TableRow >
                 <TableCell>&nbsp;</TableCell>  
-                <TableCell>Name</TableCell>
+                <TableCell>            
+                  <TableSortLabel
+                   active={true}
+                   direction={order}
+                   onClick={() => setOrder(order === 'asc' ? 'desc' : 'asc')}
+                  >
+                  Name
+                </TableSortLabel>
+                </TableCell>
                 <TableCell align="right">Address</TableCell>
                 <TableCell align="right">Coordinates</TableCell>
                 <TableCell align="right">Categories</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {locations.map(row => (
+              {getSorted().map(row => (
                 <TableRow key={row.name} onClick={handleClick(row)}>
                   <TableCell padding="checkbox">
                      <Checkbox checked={row.id === selectedLocationId}/>                                             
