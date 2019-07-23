@@ -16,16 +16,11 @@ import { AppContext } from "../AppContext";
 
 /* table */
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import TableSortLabel from "@material-ui/core/TableSortLabel";
+import MaterialTable from 'material-table';
 import Paper from "@material-ui/core/Paper";
-import Checkbox from "@material-ui/core/Checkbox";
 import { Container } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
+
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,18 +32,12 @@ const useStyles = makeStyles(theme => ({
 export default function Locations({ history, match }, props) {
   const classes = useStyles();
 
-  const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("name");
-
   const {
-    data: { locations, selectedLocationId },
+    data: { locations, selectedLocationId, categories },
     setSelectedLocation,
     removeSelectedLocation
   } = useContext(AppContext);
 
-  const handleClick = ({ id }) => evt => {
-    setSelectedLocation(id);
-  };
 
   const goToEdit = () => {
     history.push(`/locations/${selectedLocationId}`);
@@ -62,20 +51,7 @@ export default function Locations({ history, match }, props) {
     history.push(`/locations/new`);
   };
 
-  const getSorted = () => {
-    let result = locations.sort((a, b) => {
-      if (a[orderBy] < b[orderBy]) {
-        return order === "asc" ? -1 : 1;
-      }
-      if (a[orderBy] > b[orderBy]) {
-        return order === "asc" ? 1 : -1;
-      }
-      return 0;
-    });
-
-    return result;
-  };
-
+  /* table */
   return (
     <div>
       <AppBar position="static">
@@ -111,46 +87,29 @@ export default function Locations({ history, match }, props) {
 
       <Container className={classes.root}>
         <Paper>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>&nbsp;</TableCell>
-                <TableCell>
-                  <TableSortLabel
-                    active={true}
-                    direction={order}
-                    onClick={() => setOrder(order === "asc" ? "desc" : "asc")}
-                  >
-                    Name
-                  </TableSortLabel>
-                </TableCell>
-                <TableCell align="right">Address</TableCell>
-                <TableCell align="right">Coordinates</TableCell>
-                <TableCell align="right">Categories</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {getSorted().map(row => (
-                <TableRow key={row.name} onClick={handleClick(row)}>
-                  <TableCell padding="checkbox">
-                    <Checkbox checked={row.id === selectedLocationId} />
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell align="right">{row.address}</TableCell>
-                  <TableCell align="right">
-                    {row.coordinates.map(c => c.toFixed(2)).join(",")}
-                  </TableCell>
-                  <TableCell align="right">
-                    {row.categories.map(cat => (
-                      <Chip key={cat} label={cat} className={classes.chip} />
-                    ))}
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <MaterialTable
+            title="Locations"
+            columns={[
+                { title: 'Name', field: 'name' },
+                { title: 'Address', field: 'address' },
+                { title: 'Coordinates', field: 'coordinates'},
+                { 
+                    title: 'Categories', 
+                    field: 'categories',
+                    lookup: categories.reduce((acc, cat) => ({...acc, [cat]:cat}), {}),
+                    render:rowData => rowData.categories.map(value => <Chip key={value} label={value} className={classes.chip} />)
+                }
+            ]}
+            data={locations}        
+            options={{
+              selection: true,
+              grouping: true,
+              searchable: false,
+              filtering: true
+            }}
+            onSelectionChange={(rows) => alert('You selected ' + rows.length + ' rows')}
+         />
+    
         </Paper>
       </Container>
     </div>

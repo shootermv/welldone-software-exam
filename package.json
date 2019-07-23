@@ -14,6 +14,8 @@
     "clsx": "latest",
     "jss-preset-default": "^4.5.0",
     "leaflet": "^1.5.1",
+    "material-icons": "^0.3.1",
+    "material-table": "^1.40.1",
     "react": "latest",
     "react-dom": "latest",
     "react-leaflet": "^2.4.0",
