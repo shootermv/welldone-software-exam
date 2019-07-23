@@ -37,7 +37,7 @@ import MaterialTable from 'material-table';
 import Paper from "@material-ui/core/Paper";
 import { Container } from "@material-ui/core";
 import Chip from "@material-ui/core/Chip";
-
+import Checkbox from "@material-ui/core/Checkbox";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -73,7 +73,6 @@ export default function Locations({ history, match }, props) {
     removeSelectedLocation
   } = useContext(AppContext);
 
-  const [selectedRows, setSelectedRows] = useState(0);
 
   const goToEdit = () => {
     history.push(`/locations/${selectedLocationId}`);
@@ -100,7 +99,7 @@ export default function Locations({ history, match }, props) {
             aria-label="Edit"
             color="inherit"
             onClick={goToEdit}
-            disabled={selectedRows===0}
+            disabled={!selectedLocationId}
           >
             <EditIcon />
           </IconButton>
@@ -108,7 +107,7 @@ export default function Locations({ history, match }, props) {
             aria-label="Delete"
             color="inherit"
             onClick={handleDelete}
-            disabled={selectedRows===0}
+            disabled={!selectedLocationId}
           >
             <DeleteIcon />
           </IconButton>
@@ -127,6 +126,13 @@ export default function Locations({ history, match }, props) {
             icons={tableIcons}
             title="Locations"
             columns={[
+                { 
+                   title: '',
+                   field: 'id' ,
+                   render: rowData => <Checkbox onClick={() => setSelectedLocation(rowData.id)}
+                   checked={rowData.id === selectedLocationId}  disableRipple/>                 
+                 
+                },
                 { title: 'Name', field: 'name' },
                 { title: 'Address', field: 'address' },
                 { title: 'Coordinates', field: 'coordinates'},
@@ -139,19 +145,10 @@ export default function Locations({ history, match }, props) {
             ]}
             data={locations}        
             options={{
-              selection: true,
+              //selection: true,
               grouping: true,
               searchable: false,
               filtering: true
-            }}
-            onSelectionChange={(rows) => {
-               // didnt manage to achieve "single row selection" - so did this hack to force user to select only one row 
-               if ( rows.length===1 ) {
-                     setSelectedRows(1);
-                     setSelectedLocation(rows[0].id);
-               } else {
-                     setSelectedRows(0);
-               }
             }}
          />
     
