@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 
 /* toolbar */
 import AppBar from "@material-ui/core/AppBar";
@@ -38,6 +38,7 @@ export default function Locations({ history, match }, props) {
     removeSelectedLocation
   } = useContext(AppContext);
 
+  const [selectedRows, setSelectedRows] = useState(0);
 
   const goToEdit = () => {
     history.push(`/locations/${selectedLocationId}`);
@@ -57,14 +58,14 @@ export default function Locations({ history, match }, props) {
       <AppBar position="static">
         <Toolbar>
           <Typography type="title" color="inherit" variant="h6" style={{ flex: 1 }}>
-            {"Locations"}
+            {"Locations - must select single row for edit or delete"}
           </Typography>
 
           <IconButton
             aria-label="Edit"
             color="inherit"
             onClick={goToEdit}
-            disabled={selectedLocationId ? false : true}
+            disabled={selectedRows===0}
           >
             <EditIcon />
           </IconButton>
@@ -72,7 +73,7 @@ export default function Locations({ history, match }, props) {
             aria-label="Delete"
             color="inherit"
             onClick={handleDelete}
-            disabled={selectedLocationId ? false : true}
+            disabled={selectedRows===0}
           >
             <DeleteIcon />
           </IconButton>
@@ -97,7 +98,7 @@ export default function Locations({ history, match }, props) {
                     title: 'Categories', 
                     field: 'categories',
                     lookup: categories.reduce((acc, cat) => ({...acc, [cat]:cat}), {}),
-                    render:rowData => rowData.categories.map(value => <Chip key={value} label={value} className={classes.chip} />)
+                    render: rowData => rowData.categories.map(value => <Chip key={value} label={value} className={classes.chip} />)
                 }
             ]}
             data={locations}        
@@ -107,7 +108,15 @@ export default function Locations({ history, match }, props) {
               searchable: false,
               filtering: true
             }}
-            onSelectionChange={(rows) => alert('You selected ' + rows.length + ' rows')}
+            onSelectionChange={(rows) => {
+               // didnt manage to achieve "single row selection" - so did this hack to force user to select only one row 
+               if ( rows.length===1 ) {
+                     setSelectedRows(1);
+                     setSelectedLocation(rows[0].id);
+               } else {
+                     setSelectedRows(0);
+               }
+            }}
          />
     
         </Paper>
