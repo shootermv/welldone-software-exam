@@ -41,13 +41,14 @@ export default function EditCategory({ history, match }) {
 
       <AppBar position="static">
         <Toolbar>
-          <Typography type="title" color="inherit">
+          <Typography type="title" color="inherit" style={{ flex: 1 }}>
             {"Edit Category"}
           </Typography>
-        </Toolbar>
-        <Fab color="primary" aria-label="Done">
+        
+        <Fab color="secondary" aria-label="Done">
           <DoneIcon onClick={handleSubmit}/>
         </Fab>
+        </Toolbar>
       </AppBar>
 
       <Container>

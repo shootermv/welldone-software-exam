@@ -120,13 +120,14 @@ export default function EditLocation({ history, match }) {
     <form noValidate autoComplete="off" onSubmit={handleSubmit}>
       <AppBar position="static">
         <Toolbar>
-          <Typography type="title" color="inherit">
+          <Typography type="title" color="inherit" style={{ flex: 1 }}>
             {"Edit Location"}
           </Typography>
-        </Toolbar>
-        <Fab color="primary" aria-label="Done">
+        
+        <Fab color="secondary" aria-label="Done">
           <DoneIcon onClick={handleSubmit} />
         </Fab>
+        </Toolbar>
       </AppBar>
 
       <Container>
